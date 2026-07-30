@@ -20,11 +20,11 @@ class cpm_output_monitor extends uvm_monitor;
     task run_phase(uvm_phase phase);
         super.run_phase(phase);
         forever begin
-            item_collected = cpm_packet::type_id::create("item_collected");
-            
             @(posedge output_if.clk);
 
             if(output_if.out_valid && output_if.out_ready) begin
+
+                item_collected = cpm_packet::type_id::create("item_collected");
 
                 output_if.collect_packet(item_collected.id, item_collected.opcode, item_collected.payload);
                 
