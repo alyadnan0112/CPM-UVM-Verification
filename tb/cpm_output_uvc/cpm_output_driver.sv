@@ -1,0 +1,43 @@
+class cpm_output_driver extends uvm_driver #(output_transcation);
+
+`uvm_component_utils(cpm_output_driver)
+
+virtual cpm_output_interface vif;
+
+function new(string name="cpm_output_driver",uvm_component parent);
+super.new(name,parent);
+endfunction
+
+function void build_phase(uvm_phase phase);
+super.build_phase(phase);
+
+if(!output_vif_config::get(this,"","vif",vif))
+
+`uvm_error("NO VIF","vif not set")
+
+endfunction
+
+
+task run_phase(uvm_phase phase);
+
+forever begin 
+seq_item_port.get_next_item(req);
+send_to_dut(req);
+seq_item_port.item_done();
+end
+
+endtask
+
+task send_to_dut(output_transcation pkt);
+
+@(posedge vif.clock);
+
+vif.out_ready = pkt.out_ready;
+endtask
+
+
+endclass
+
+
+
+
