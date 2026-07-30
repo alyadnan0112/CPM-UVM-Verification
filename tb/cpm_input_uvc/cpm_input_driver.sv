@@ -1,8 +1,8 @@
 class cpm_input_driver extends uvm_driver #(cpm_packet);
   
-   virtual interface input_if vif;
+   virtual interface cpm_input_interface vif;
 
-    `uvm_component_utils(input_driver)
+    `uvm_component_utils(cpm_input_driver)
 
     function new(string name, uvm_component parent);
 
@@ -14,7 +14,7 @@ class cpm_input_driver extends uvm_driver #(cpm_packet);
 
         super.build_phase(phase);
 
-        if(!input_vif_config::get(this,"","vif",vif))
+        if(!cpm_input_vif_config::get(this,"","vif",vif))
          `uvm_error("NO VIF","vif not set")
         
         endfunction
@@ -41,6 +41,8 @@ class cpm_input_driver extends uvm_driver #(cpm_packet);
         wait(vif.rst==0);
 
         seq_item_port.get_next_item(req);
+
+              `uvm_info(get_type_name(), $sformatf("Sending Packet :\n%s", req.sprint()), UVM_HIGH)
 
             send_to_dut(req);
 

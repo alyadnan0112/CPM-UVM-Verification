@@ -1,10 +1,11 @@
 class cpm_input_monitor extends uvm_monitor;
 
 uvm_analysis_port #(cpm_packet) item_collected_port;  //TLM port
+
 `uvm_component_utils(cpm_input_monitor)                   // register with factory
 
 
-virtual cpm_input_interface vif;            //virtual interface
+virtual interface cpm_input_interface vif;            //virtual interface
 
 cpm_packet pkt;           //handle
 
@@ -22,11 +23,13 @@ endfunction
 
 task run_phase(uvm_phase phase);
     forever begin
-        @(posedge vif.clock);
+        @(posedge vif.clk);
         if(vif.in_valid && vif.in_ready) begin
     pkt = cpm_packet::type_id::create("pkt",this);
     vif.collect_packet(pkt.id,pkt.opcode,pkt.payload);
     item_collected_port.write(pkt);
+
+    `uvm_info(get_type_name(), $sformatf("Packet Collected :\n%s", pkt.sprint()), UVM_LOW)
         end
     end   
 

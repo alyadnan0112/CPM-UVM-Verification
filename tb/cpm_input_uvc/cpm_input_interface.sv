@@ -1,4 +1,4 @@
-interface cpm_input_interface(input clock, input reset);
+interface cpm_input_interface(input clk, input rst);
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
@@ -23,5 +23,4 @@ payload = in_payload;
 endtask:collect_packet
 
 endinterface : cpm_input_interface
-
 

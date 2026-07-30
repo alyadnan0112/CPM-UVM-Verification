@@ -15,12 +15,7 @@ cpm_input_monitor in_monitor;
     function void build_phase(uvm_phase phase);
         super.build_phase(phase);
 
-        uvm_config_db#(uvm_active_passive_enum)::get
-        (this, 
-        "", 
-        "is_active", 
-        is_active
-        );
+        uvm_config_db#(uvm_active_passive_enum)::get(this,"", "is_active", is_active );
 
         in_monitor = cpm_input_monitor::type_id::create("in_monitor", this);
 
