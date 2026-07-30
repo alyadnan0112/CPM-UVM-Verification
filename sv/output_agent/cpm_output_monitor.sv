@@ -27,6 +27,11 @@ class cpm_output_monitor extends uvm_monitor;
                 item_collected = cpm_packet::type_id::create("item_collected");
 
                 output_if.collect_packet(item_collected.id, item_collected.opcode, item_collected.payload);
+
+                `uvm_info(get_type_name(),
+                    $sformatf("Collected packet:\n%s",
+                    item_collected.sprint()),
+                    UVM_MEDIUM)
                 
                 item_collected_port.write(item_collected);
             end
