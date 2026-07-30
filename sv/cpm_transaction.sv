@@ -16,5 +16,4 @@ class cpm_packet extends uvm_sequence_item;
         
     endfunction //new()
 
-
 endclass
