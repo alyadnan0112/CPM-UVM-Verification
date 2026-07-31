@@ -7,6 +7,7 @@
 - Driver
 - Monitor
 - Agent
+- Environment
 
 ---
 
@@ -17,6 +18,7 @@
 - Register Driver
 - Register Monitor
 - Register Agent
+- Register Environment
 
 ---
 
@@ -27,6 +29,7 @@
 - Driver
 - Monitor
 - Agent
+- Envrionment
 
 ---
 
@@ -127,7 +130,8 @@ tb/
 │   ├── sequencer
 │   ├── driver
 │   ├── monitor
-│   └── agent
+│   ├── agent
+│   └── environment
 │
 ├── register_uvc/
 │   ├── transaction
@@ -135,6 +139,7 @@ tb/
 │   ├── sequencer
 │   ├── driver
 │   ├── monitor
+│   ├── environment
 │   └── agent
 │
 ├── output_uvc/
@@ -143,6 +148,7 @@ tb/
 │   ├── sequencer
 │   ├── driver
 │   ├── monitor
+│   ├── environment
 │   └── agent
 │
 ├── virtual_sequences/
