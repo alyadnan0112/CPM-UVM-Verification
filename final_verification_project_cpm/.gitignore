@@ -1,0 +1,7 @@
+xcelium.d/
+*.log
+*.history
+*.key
+*.shm/
+*.vcd
+.simvision/

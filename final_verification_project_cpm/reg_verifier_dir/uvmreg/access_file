@@ -1,0 +1,17 @@
+DEFAULT -rwc
+PATH top.dut.reg_file.add_const_fld +rw
+PATH top.dut.reg_file.busy_fld +rw
+PATH top.dut.reg_file.count_in_reg +rw
+PATH top.dut.reg_file.count_out_reg +rw
+PATH top.dut.reg_file.ctrl_reg +rw
+PATH top.dut.reg_file.drop_cfg_reg +rw
+PATH top.dut.reg_file.drop_en_fld +rw
+PATH top.dut.reg_file.drop_opcode_fld +rw
+PATH top.dut.reg_file.dropped_count_reg +rw
+PATH top.dut.reg_file.enable_fld +rw
+PATH top.dut.reg_file.mask_fld +rw
+PATH top.dut.reg_file.mode_fld +rw
+PATH top.dut.reg_file.mode_reg +rw
+PATH top.dut.reg_file.params_reg +rw
+PATH top.dut.reg_file.soft_rst_fld +rw
+PATH top.dut.reg_file.status_reg +rw

@@ -1,0 +1,20 @@
+ 
+r cpm_cpm_regs.count_in_reg count_in_reg 0 RTL 0 32
+r cpm_cpm_regs.count_out_reg count_out_reg 0 RTL 0 32
+r cpm_cpm_regs.ctrl_reg ctrl_reg 0 RTL 0 32
+f cpm_cpm_regs.ctrl_reg.enable enable_fld 0 RTL 0 1
+f cpm_cpm_regs.ctrl_reg.soft_rst soft_rst_fld 0 RTL 1 1
+r cpm_cpm_regs.drop_cfg_reg drop_cfg_reg 0 RTL 0 32
+f cpm_cpm_regs.drop_cfg_reg.drop_en drop_en_fld 0 RTL 0 1
+f cpm_cpm_regs.drop_cfg_reg.drop_opcode drop_opcode_fld 0 RTL 4 4
+r cpm_cpm_regs.dropped_count_reg dropped_count_reg 0 RTL 0 32
+r cpm_cpm_regs.mode_reg mode_reg 0 RTL 0 32
+f cpm_cpm_regs.mode_reg.mode mode_fld 0 RTL 0 2
+r cpm_cpm_regs.params_reg params_reg 0 RTL 0 32
+f cpm_cpm_regs.params_reg.mask mask_fld 0 RTL 0 16
+f cpm_cpm_regs.params_reg.add_const add_const_fld 0 RTL 16 16
+r cpm_cpm_regs.status_reg status_reg 0 RTL 0 32
+f cpm_cpm_regs.status_reg.busy busy_fld 0 RTL 0 1
+b cpm_cpm_regs reg_file 0 RTL 0 0
+
+

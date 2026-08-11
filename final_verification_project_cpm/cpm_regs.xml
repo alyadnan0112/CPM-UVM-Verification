@@ -1,0 +1,343 @@
+<?xml version="1.0"?>
+<!-- REQUIRED HEADER INFO - DOES NOT END UP IN ANY GENERATED SV FILES -->
+<spirit:component
+   xmlns:spirit="http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009"
+   xmlns:cadence="http://www.cadence.com/SPIRIT/1685-2009/vendorExtensions"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.cadence.com/SPIRIT/1685-2009/vendorExtensions
+     http://www.cadence.com/SPIRIT/1685-2009/vendorExtensions/cadenceSpiritVendorExtensions.xsd
+     http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009
+     http://www.accellera.org/images/xmlschema/spirit/1685-2009/index.xsd">
+<!--http://www.spiritconsortium.org/XMLSchema/SPIRIT/1685-2009/index.xsd"-->
+      <spirit:vendor>Cadence_Design_Systems</spirit:vendor>
+<!-- REQUIRED HEADER INFO - DOES NOT END UP IN ANY GENERATED SV FILES -->
+
+      <spirit:library>CPM_Registers</spirit:library>
+	<spirit:name>cpm_regs</spirit:name>
+	<spirit:version>1.0</spirit:version>
+ <!-- START OF ADDRESS MAP DEFINITION -->
+   <!-- CPM Register Control Interface: req/gnt/write_en/addr[7:0]/wdata[31:0]/rdata[31:0] -->
+   <!-- All registers are 32-bit, byte addresses spaced by 4 (0x00, 0x04, 0x08 ...) -->
+        <!--Required for schema validation -->
+	<spirit:memoryMaps>
+	    <spirit:memoryMap>
+            <!-- This will be the name of the model, unless overriden with a model generator option -->
+
+	    <spirit:name>cpm</spirit:name>
+
+        <!-- To use cpm_model.cpm_regs.ctrl_reg.read(status, data, parent.this); -->
+        <!-- First address block is for registers, cpm_regs -->
+        <spirit:addressBlock>
+	    <spirit:name>cpm_regs</spirit:name>
+	    <spirit:baseAddress>0x0</spirit:baseAddress>
+            <spirit:typeIdentifier>cpm_regs_c</spirit:typeIdentifier>
+	    <spirit:range>0x20</spirit:range>
+	    <spirit:width>32</spirit:width>
+
+            <!-- Start adding the registers -->
+            <!-- For each register:
+                 Name = name of the register used by the model
+                 Offset = the offset of the register from the address Block it is defined.  This is used by FRONTDOOR Accesse
+                 Access = Register Access will be distributed amonst the fields in iregGen, the field access will override the
+                          register access
+                 Reset value = Will be distributed amongst the fields
+              -->
+
+	    <!-- ============================================================ -->
+	    <!-- CTRL Register (0x00) - §10.8                                  -->
+	    <!-- bit0 ENABLE, bit1 SOFT_RST (self-clearing, W1 pulse)          -->
+	    <!-- ============================================================ -->
+	       <spirit:register>
+		     <spirit:name>ctrl_reg</spirit:name>
+		     <spirit:addressOffset>0x00</spirit:addressOffset>
+                     <spirit:typeIdentifier>ctrl_reg_c</spirit:typeIdentifier>
+		     <spirit:size>32</spirit:size>
+		     <spirit:access>read-write</spirit:access>
+		     <spirit:reset>
+		     <spirit:value>0x00000000</spirit:value>
+		     <spirit:mask>0x00000003</spirit:mask>
+		     </spirit:reset>
+				<spirit:field>
+					<spirit:name>enable</spirit:name>
+					<spirit:description>Enables CPM operation</spirit:description>
+					<spirit:bitOffset>0</spirit:bitOffset>
+					<spirit:bitWidth>1</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<!-- Each field is added as an hdl slice, this is only used for DPI back door
+                                            This MUST match what is implemented for the RTL.  A field may or may not be
+                                            physically attached to the register that it is defined in.  This is to support
+                                            Bit slicing to build registers that do not exist-->
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="enable_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+				<spirit:field>
+					<spirit:name>soft_rst</spirit:name>
+					<spirit:description>Writing SOFT_RST=1 clears counters and internal state. Self-clears to 0 within one cycle.</spirit:description>
+					<spirit:bitOffset>1</spirit:bitOffset>
+					<spirit:bitWidth>1</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="soft_rst_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+
+		     <spirit:vendorExtensions>
+	                   <cadence:extensions>
+		                   <cadence:hdlAccess cadence:path="ctrl_reg"/>
+	                   </cadence:extensions>
+		     </spirit:vendorExtensions>
+
+		  </spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- MODE Register (0x04) -                                       -->
+	    <!-- bits[1:0] MODE - processing mode select                       -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>mode_reg</spirit:name>
+				<spirit:addressOffset>0x04</spirit:addressOffset>
+	                        <spirit:typeIdentifier>mode_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-write</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0x00000003</spirit:mask>
+				</spirit:reset>
+				<spirit:field>
+					<spirit:name>mode</spirit:name>
+					<spirit:description>Processing mode select</spirit:description>
+					<spirit:bitOffset>0</spirit:bitOffset>
+					<spirit:bitWidth>2</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="mode_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+
+				<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="mode_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- PARAMS Register (0x08) -                                     -->
+	    <!-- bits[15:0]  MASK       - XOR mask                             -->
+	    <!-- bits[31:16] ADD_CONST  - add constant                         -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>params_reg</spirit:name>
+				<spirit:addressOffset>0x08</spirit:addressOffset>
+	                        <spirit:typeIdentifier>params_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-write</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0xffffffff</spirit:mask>
+				</spirit:reset>
+				<spirit:field>
+					<spirit:name>mask</spirit:name>
+					<spirit:description>Processing mode XOR mask</spirit:description>
+					<spirit:bitOffset>0</spirit:bitOffset>
+					<spirit:bitWidth>16</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="mask_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+				<spirit:field>
+					<spirit:name>add_const</spirit:name>
+					<spirit:description>Add constant</spirit:description>
+					<spirit:bitOffset>16</spirit:bitOffset>
+					<spirit:bitWidth>16</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="add_const_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+
+				<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="params_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- DROP_CFG Register (0x0C) - §11.1                              -->
+	    <!-- bit0     DROP_EN     - enable packet dropping                 -->
+	    <!-- bits[7:4] DROP_OPCODE - opcode to drop                        -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>drop_cfg_reg</spirit:name>
+				<spirit:addressOffset>0x0C</spirit:addressOffset>
+	                        <spirit:typeIdentifier>drop_cfg_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-write</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0x000000f1</spirit:mask>
+				</spirit:reset>
+				<spirit:field>
+					<spirit:name>drop_en</spirit:name>
+					<spirit:description>Enable packet dropping</spirit:description>
+					<spirit:bitOffset>0</spirit:bitOffset>
+					<spirit:bitWidth>1</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="drop_en_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+				<spirit:field>
+					<spirit:name>drop_opcode</spirit:name>
+					<spirit:description>Opcode to drop</spirit:description>
+					<spirit:bitOffset>4</spirit:bitOffset>
+					<spirit:bitWidth>4</spirit:bitWidth>
+					<spirit:access>read-write</spirit:access>
+					<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="drop_opcode_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+
+				<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="drop_cfg_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- STATUS Register (0x10) - §10.7                                -->
+	    <!-- bit0 BUSY - asserted while a packet is accepted but not yet   -->
+	    <!--            produced output or been dropped                   -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>status_reg</spirit:name>
+				<spirit:addressOffset>0x10</spirit:addressOffset>
+	                        <spirit:typeIdentifier>status_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-only</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0x00000001</spirit:mask>
+				</spirit:reset>
+				<spirit:field>
+					<spirit:name>busy</spirit:name>
+					<spirit:description>Asserted when at least one accepted packet has not yet produced an output or been dropped</spirit:description>
+					<spirit:bitOffset>0</spirit:bitOffset>
+					<spirit:bitWidth>1</spirit:bitWidth>
+					<spirit:access>read-only</spirit:access>
+					<spirit:vendorExtensions>
+						<vendorExtensions:collect_coverage>cov_all</vendorExtensions:collect_coverage>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="busy_fld"/>
+	                                   </cadence:extensions>
+					</spirit:vendorExtensions>
+				</spirit:field>
+
+				<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="status_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- COUNT_IN Register (0x14) - §10.8                              -->
+	    <!-- Number of accepted input packets                               -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>count_in_reg</spirit:name>
+				<spirit:addressOffset>0x14</spirit:addressOffset>
+	                        <spirit:typeIdentifier>count_in_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-only</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0xffffffff</spirit:mask>
+				</spirit:reset>
+				<spirit:vendorExtensions>
+					<vendorExtensions:collect_coverage>cov_all</vendorExtensions:collect_coverage>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="count_in_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- COUNT_OUT Register (0x18) - §10.8                             -->
+	    <!-- Number of output packets produced                              -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>count_out_reg</spirit:name>
+				<spirit:addressOffset>0x18</spirit:addressOffset>
+	                        <spirit:typeIdentifier>count_out_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-only</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0xffffffff</spirit:mask>
+				</spirit:reset>
+				<spirit:vendorExtensions>
+					<vendorExtensions:collect_coverage>cov_all</vendorExtensions:collect_coverage>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="count_out_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+	    <!-- ============================================================ -->
+	    <!-- DROPPED_COUNT Register (0x1C) - §10.8                         -->
+	    <!-- Number of dropped packets                                      -->
+	    <!-- Invariant (when stable): COUNT_OUT + DROPPED_COUNT == COUNT_IN -->
+	    <!-- ============================================================ -->
+			<spirit:register>
+				<spirit:name>dropped_count_reg</spirit:name>
+				<spirit:addressOffset>0x1C</spirit:addressOffset>
+	                        <spirit:typeIdentifier>dropped_count_reg_c</spirit:typeIdentifier>
+				<spirit:size>32</spirit:size>
+				<spirit:access>read-only</spirit:access>
+				<spirit:reset>
+					<spirit:value>0x00000000</spirit:value>
+					<spirit:mask>0xffffffff</spirit:mask>
+				</spirit:reset>
+				<spirit:vendorExtensions>
+					<vendorExtensions:collect_coverage>cov_all</vendorExtensions:collect_coverage>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="dropped_count_reg"/>
+	                                   </cadence:extensions>
+				</spirit:vendorExtensions>
+			</spirit:register>
+
+			<spirit:vendorExtensions>
+	                                   <cadence:extensions>
+		                              <cadence:hdlAccess cadence:path="reg_file"/>
+	                                   </cadence:extensions>
+			</spirit:vendorExtensions>
+		</spirit:addressBlock>
+
+	    </spirit:memoryMap>
+	</spirit:memoryMaps>
+
+	<spirit:vendorExtensions>
+	<cadence:extensions>
+		<cadence:hdlAccess cadence:path="top.dut"/>
+	</cadence:extensions>
+	</spirit:vendorExtensions>
+</spirit:component>

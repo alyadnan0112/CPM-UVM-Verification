@@ -1,0 +1,46 @@
+ ** -- Register/Field configuration -- **
+
+
+r cou_cfgcou1 1
+non_reserved_auto_added_field 32 0 RO 0 0 1 1 1
+
+r cou_cfgcou2 1
+non_reserved_auto_added_field 32 0 RO 0 0 1 1 1
+
+r ctr_cfgctr3 2
+enable 1 0 RW 0 0 1 1 1
+soft_rst 1 1 RW 0 0 1 1 1
+
+r dro_cfgdro4 2
+drop_en 1 0 RW 0 0 1 1 1
+drop_opcode 4 4 RW 0 0 1 1 1
+
+r dro_cfgdro5 1
+non_reserved_auto_added_field 32 0 RO 0 0 1 1 1
+
+r mod_cfgmod6 1
+mode 2 0 RW 0 0 1 1 1
+
+r par_cfgpar7 2
+mask 16 0 RW 0 0 1 1 1
+add_const 16 16 RW 0 0 1 1 1
+
+r sta_cfgsta8 1
+busy 1 0 RO 0 0 1 1 1
+
+
+ ** --  RegFiles configuration -- **
+
+
+ ** --  Blocks configuration -- **
+
+b cpm_regs.cpm_cpm_regs 8 0 0 0 1 1 1
+count_in_reg_c cou_cfgcou1 count_in_reg 20 4 RO 0 1 8
+count_out_reg_c cou_cfgcou2 count_out_reg 24 4 RO 0 1 8
+ctrl_reg_c ctr_cfgctr3 ctrl_reg 0 4 RW 0 1 8
+drop_cfg_reg_c dro_cfgdro4 drop_cfg_reg 12 4 RW 0 1 8
+dropped_count_reg_c dro_cfgdro5 dropped_count_reg 28 4 RO 0 1 8
+mode_reg_c mod_cfgmod6 mode_reg 4 4 RW 0 1 8
+params_reg_c par_cfgpar7 params_reg 8 4 RW 0 1 8
+status_reg_c sta_cfgsta8 status_reg 16 4 RO 0 1 8
+
